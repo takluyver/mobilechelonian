@@ -116,55 +116,6 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
         }
     };
     this.parse_points();
-
-    /*
-      getValue splits up the string with any turtle infromation, breaks it up 
-      into points which have an x, y and b value. It is called 6 times for every turtle command entered (once for each new and old point value). Count is itterated for 
-      turtle command entered. The count argument should tell the function which turtle 
-      command you want information about, the coord argument should specify which or the 6 possible pieces of information about each command you're looking for.
-    */
-    TurtleDrawing.prototype.getValue = function (count,coord){
-        var wCoord = coord;
-        var wCount = count;
-        var points = this.points;
-        
-        if(coord == 1){
-            return oldPen = points[wCount].p;
-        }
-        else if(coord == 2){
-            return oldColour = points[wCount].lc;
-        }   
-        else if(coord == 3){
-            return oldX = points[wCount].x;
-        }
-        else if(coord == 4){
-            return 	oldY = points[wCount].y;
-        }
-        else if(coord == 5){
-            return 	oldRotation = points[wCount].b;
-        }
-        else if(coord == 6){
-            return 	turtleSpeed = points[wCount].s;
-        }
-        else if(coord == 7){
-            return newPen = points[wCount+1].p;
-        }
-        else if(coord == 8){
-            return newColour = points[wCount+1].lc;
-        }
-        else if(coord == 9){
-            return 	newX = points[wCount+1].x;
-        }
-        else if(coord == 10){
-            return 	newY = points[wCount+1].y;
-        }
-        else if(coord == 11){
-            return 	newRotation = points[wCount+1].b;
-        }
-        else if(coord == 12){
-            return turtleSpeed = points[wCount+1].s;
-        }
-    }
     
     // some variable to play with still
     this.lineSize = 2;
@@ -201,28 +152,28 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
     */
     TurtleDrawing.prototype.nextCount = function (){
         var count = this.count;
-        this.oldPen = this.getValue(count, 1);
-        this.oldColour = this.getValue(count, 2);
-        this.oldX = this.getValue(count,3);
-        this.oldY = this.getValue(count,4);
-        this.oldRotation = this.getValue(count,5);
-        this.turtleSpeed = this.getValue(count,6);
-        this.newPen = this.getValue(count, 7);
-        this.newColour = this.getValue(count, 8);
-        this.newX = this.getValue(count,9);
-        this.newY = this.getValue(count,10);
-        this.changRot = this.getValue(count,11);
-        this.turtleSpeed = this.getValue(count,12);
+        this.oldPen = this.points[count].p;
+        this.oldColour = this.points[count].lc;
+        this.oldX = this.points[count].x;
+        this.oldY = this.points[count].y;
+        this.oldRotation = this.points[count].b;
+        this.turtleSpeed = this.points[count].s;
+        this.newPen = this.points[count+1].p;
+        this.newColour = this.points[count+1].lc;
+        this.newX = this.points[count+1].x;
+        this.newY = this.points[count+1].y;
+        this.changRot = this.points[count+1].b;
+        this.turtleSpeed = this.points[count+1].s;
         this.count++;
         this.veryOldX = this.oldX;
         this.veryOldY = this.oldY;
         //path.add(new paper.Point(veryOldX, veryOldY));
 
-        if(newPen!=oldPen || newColour != oldColour){
+        if (this.newPen != this.oldPen || this.newColour != this.oldColour){
+            //Changing pen - start a new path
             this.path = new paper.Path();
             this.path.strokeWidth = 3;
-            
-            this.path.add(new paper.Point(oldX, oldY));
+            this.path.add(new paper.Point(this.oldX, this.oldY));
         }
 
         // Good test command to see what the input is from the string
@@ -350,7 +301,7 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
 
         //rotate turtle, current is the exact centre of the turtle
         if (changRot != 0 && that.turtleShow==1){
-            var current = new paper.Point(oldX, oldY);
+            var current = new paper.Point(that.oldX, that.oldY);
             
             if(changRot < 0){
             
@@ -404,7 +355,7 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
             if(that.newPen == 1){
                 that.path.add(new paper.Point(that.oldX, that.oldY));
                 that.turtle.position = new paper.Point(that.oldX, that.oldY);
-                that.path.strokeColor = newColour;
+                that.path.strokeColor = that.newColour;
             }
         } else {
             // done animating this command
