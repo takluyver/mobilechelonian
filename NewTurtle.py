@@ -17,6 +17,7 @@ class Turtle(widgets.DOMWidget):
         self.pen = 1
         self.speedVar = 1
         self.color = "black"
+        self.bearing = 90
         self.points = []
         self.home()
 
@@ -135,6 +136,9 @@ class Turtle(widgets.DOMWidget):
         Example: t.home()'''
         self.posX = 200
         self.posY = 200
+        if 90 < self.bearing <=270:
+            self.b_change = - (self.bearing - 90)
+        else:
+            self.b_change = 90 - self.bearing
         self.bearing = 90
-        self.b_change = 0
         self._add_point()
