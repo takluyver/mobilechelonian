@@ -4,7 +4,7 @@
 
 define( function () {
 
-function do_turtle(data, element) {
+function do_turtle(points, element) {
         var toinsert = $('<div/>');
         var turtleArea = $('<div/>');
         turtleArea.attr('id','turtle-canvas-area');
@@ -37,7 +37,7 @@ function do_turtle(data, element) {
 
         canvasDiv.append(canvas);
         
-        toinsert.turtledrawing = new TurtleDrawing(data, canvas, gridButton, helpButton);
+        toinsert.turtledrawing = new TurtleDrawing(points, canvas, gridButton, helpButton);
         
         element.append(toinsert);
 }
@@ -47,8 +47,8 @@ function load_ipython_extension() {
     console.log("Attached to IPython");
 }
 
-function TurtleDrawing(data, canvas_element, grid_button, help_button) {
-    this.data = data;
+function TurtleDrawing(points, canvas_element, grid_button, help_button) {
+    this.points = points;
     this.canvas = canvas_element;
     this.canvas.style.background = '#99CCFF';
     paper.setup(this.canvas);
@@ -90,32 +90,6 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
     this.help_button.click(function (event){
         alert("example:\nfrom NewTurtle import Turtle\nt = Turtle()\nt.forward(50)\nfor help:\nhelp(Turtle)");
     });
-    
-    
-    this.points = [{p:1, lc:"black", x:200, y:200, b:0, s:1}];
-    TurtleDrawing.prototype.parse_points = function () {
-        var p;
-        var lc;
-        var x;
-        var y;
-        var s;
-
-        var points = this.points;
-        
-        var d = this.data.split(',');
-        for(i = 0; i < d.length ; i+=6){
-            p = parseInt(d[i]);
-            
-            lc = d[i+1];
-            x = parseFloat(d[i+2]);
-            y = parseFloat(d[i+3]);
-            b = parseInt(d[i+4]);
-            s = parseInt(d[i+5]);
-            
-            points.push ({p:p, lc:lc, x:x, y:y, b:b, s:s});	
-        }
-    };
-    this.parse_points();
     
     // some variable to play with still
     this.lineSize = 2;
@@ -183,7 +157,7 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
     
     TurtleDrawing.prototype.draw_turtle = function() {
         //builds the initial turtle icon
-        //~ if(this.turtleShow==1){
+        if(this.turtleShow==1){
             var oldX = this.oldX;
             var oldY = this.oldY;
             var turtleColour = this.turtleColour;
@@ -224,7 +198,7 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
 
             this.turtle = new paper.Group([circle1,circle2,circle3,circle4,circle5,circle6,tail]);
             paper.view.draw;
-        //~ }
+        }
     }
     this.draw_turtle()
     
