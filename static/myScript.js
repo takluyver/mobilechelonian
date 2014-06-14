@@ -38,8 +38,6 @@ function do_turtle(data, element) {
         canvasDiv.append(canvas);
         
         toinsert.turtledrawing = new TurtleDrawing(data, canvas, gridButton, helpButton);
-        toinsert.turtledrawing.draw_turtle();
-        toinsert.turtledrawing.set_frame_handler();
         
         element.append(toinsert);
 }
@@ -92,26 +90,19 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
     this.help_button.click(function (event){
         alert("example:\nfrom NewTurtle import Turtle\nt = Turtle()\nt.forward(50)\nfor help:\nhelp(Turtle)");
     });
-
-    /*
-      getValue splits up the string with any turtle infromation, breaks it up 
-      into points which have an x, y and b value. It is called 6 times for every turtle command entered (once for each new and old point value). Count is itterated for 
-      turtle command entered. The count argument should tell the function which turtle 
-      command you want information about, the coord argument should specify which or the 6 possible pieces of information about each command you're looking for.
-    */
-    TurtleDrawing.prototype.getValue = function (count,coord){
-
+    
+    
+    this.points = [{p:1, lc:"black", x:200, y:200, b:0, s:1}];
+    TurtleDrawing.prototype.parse_points = function () {
         var p;
         var lc;
         var x;
         var y;
         var s;
 
-        var wCoord = this.coord;
-        var points = [{p:1, lc:"black", x:200, y:200, b:0, s:1}];
-        var wCount = this.count;
+        var points = this.points;
         
-        var d = this.data;
+        var d = this.data.split(',');
         for(i = 0; i < d.length ; i+=6){
             p = parseInt(d[i]);
             
@@ -123,6 +114,19 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
             
             points.push ({p:p, lc:lc, x:x, y:y, b:b, s:s});	
         }
+    };
+    this.parse_points();
+
+    /*
+      getValue splits up the string with any turtle infromation, breaks it up 
+      into points which have an x, y and b value. It is called 6 times for every turtle command entered (once for each new and old point value). Count is itterated for 
+      turtle command entered. The count argument should tell the function which turtle 
+      command you want information about, the coord argument should specify which or the 6 possible pieces of information about each command you're looking for.
+    */
+    TurtleDrawing.prototype.getValue = function (count,coord){
+        var wCoord = coord;
+        var wCount = count;
+        var points = this.points;
         
         if(coord == 1){
             return oldPen = points[wCount].p;
@@ -272,15 +276,15 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
             paper.view.draw;
         //~ }
     }
+    this.draw_turtle()
     
     /*
       The onFrame function does all the drawing, its called every frame at roughly
       30-60fps
     */
-    TurtleDrawing.prototype.set_frame_handler = function () {
-        var that = this;
+    var that = this;
         
-    paper.view.onFrame = function(event) {
+    paper.view.on('frame', function(event) {
         var turtleSpeed = that.turtleSpeed;
         var changRot = that.changRot;
         var turtleShow = that.turtleShow;
@@ -408,8 +412,7 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
             that.path.add(new paper.Point(that.newX, that.newY));
             that.nextCount();
         }
-    }
-    }
+    });
 }
 
 
