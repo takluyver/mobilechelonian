@@ -218,12 +218,11 @@ function TurtleDrawing(data, canvas_element, grid_button, help_button) {
         this.veryOldY = this.oldY;
         //path.add(new paper.Point(veryOldX, veryOldY));
 
-        var path = this.path;
         if(newPen!=oldPen || newColour != oldColour){
-            path = new paper.Path();
-            path.strokeWidth = 3;
+            this.path = new paper.Path();
+            this.path.strokeWidth = 3;
             
-            path.add(new paper.Point(oldX, oldY));
+            this.path.add(new paper.Point(oldX, oldY));
         }
 
         // Good test command to see what the input is from the string
