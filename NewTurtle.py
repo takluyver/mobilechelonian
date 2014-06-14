@@ -1,30 +1,24 @@
-import json
 import math
 
-from IPython.core.displaypub import publish_display_data
+from IPython.html import widgets
+from IPython.utils.traitlets import Unicode
+from IPython.display import display
 
-class Turtle:
+class Turtle(widgets.DOMWidget):
+    _view_name = Unicode('TurtleView', sync=True)
     SIZE = 400
     OFFSET = 20
-    REGISTERED = 0
     def __init__(self):
         '''Create a Turtle.
         Turtle()
-        Example: t = Turtle()'''    
+        Example: t = Turtle()'''
+        super(Turtle, self).__init__()
+        display(self)
         self.pen = 1
         self.speedVar = 1
         self.color = "black"
         self.points = []
         self.home()
-        if(not Turtle.REGISTERED):
-            get_ipython().events.register('post_run_cell', self.postExecuteTurtle)
-
-    def postExecuteTurtle(self):
-        jp = 'IPython.do_turtle(%s, element);' % json.dumps(self.points)
-        publish_display_data(source="NewTurtle",
-             data={'application/javascript': jp})
-        self.points = []
-        Turtle.REGISTERED = 1
 
     def pendown(self):
         '''Put down the pen. This is the default.
@@ -48,7 +42,7 @@ class Turtle:
         '''Turn the Turtle num degrees to the right.
         right(num)
         Example: t.right(90)'''
-        self.bearing -= num
+        self.bearing += num
         self.bearing = self.bearing%360
         self.b_change = num   
         self._add_point()
@@ -57,9 +51,9 @@ class Turtle:
         '''Turn the Turtle num degrees to the left.
         left(num)
         Example: t.left(90)'''
-        self.bearing += num
+        self.bearing -= num
         self.bearing = self.bearing%360
-        self.b_change = (-1)*num
+        self.b_change = -num
         self._add_point()
 
     def forward(self, num):
@@ -68,8 +62,8 @@ class Turtle:
         Example: t.forward(100)'''
         '[1, "simple", "list"]'
 
-        self.posX += round(num * math.cos(math.radians(self.bearing)), 1)
-        self.posY -= round(num * math.sin(math.radians(self.bearing)), 1)
+        self.posX += round(num * math.sin(math.radians(self.bearing)), 1)
+        self.posY -= round(num * math.cos(math.radians(self.bearing)), 1)
 
 
         if self.posX < Turtle.OFFSET:
@@ -112,7 +106,8 @@ class Turtle:
         self.color = color
 
     def _add_point(self):
-        self.points.append(dict(p=self.pen, lc=self.color, x=self.posX, y=self.posY, b=self.b_change, s=self.speedVar))
+        p = dict(p=self.pen, lc=self.color, x=self.posX, y=self.posY, b=self.b_change, s=self.speedVar)
+        self.send(p)
 
     def circle(self, radius, extent=360):
         temp = self.bearing
@@ -140,6 +135,6 @@ class Turtle:
         Example: t.home()'''
         self.posX = 200
         self.posY = 200
-        self.bearing = 0
+        self.bearing = 90
         self.b_change = 0
         self._add_point()
