@@ -10,8 +10,8 @@ from IPython.display import display, Javascript
 # the widget.
 def prepare_js():
     pkgdir = os.path.dirname(__file__)
-    nbextensions.install_nbextension([os.path.join(pkgdir, 'chelonianmobile')], symlink=True)
-    display(Javascript("IPython.load_extensions('chelonianmobile/turtlewidget');"))
+    nbextensions.install_nbextension([os.path.join(pkgdir, 'chelonianmobilejs')], symlink=True)
+    display(Javascript("IPython.load_extensions('chelonianmobilejs/turtlewidget');"))
 
 class Turtle(widgets.DOMWidget):
     _view_name = Unicode('TurtleView', sync=True)
