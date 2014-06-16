@@ -1,4 +1,4 @@
-require(['nbextensions/chelonianmobilejs/paper', "widgets/js/widget"], function(paperlib, WidgetManager){
+require(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(paperlib, WidgetManager){
     
     function TurtleDrawing(canvas_element, grid_button, help_button) {
         this.points = [];
