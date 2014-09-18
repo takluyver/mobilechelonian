@@ -2,8 +2,8 @@ import os.path
 import math
 
 from IPython.html import widgets, nbextensions
-from IPython.utils.traitlets import Unicode
-from IPython.display import display, Javascript
+from IPython.utils.traitlets import Unicode, List
+from IPython.display import display
 
 # XXX: The user shouldn't have to run this manually, but doing this when we
 # create a Turtle doesn't get the extension loaded before it tries to create
@@ -11,10 +11,14 @@ from IPython.display import display, Javascript
 def prepare_js():
     pkgdir = os.path.dirname(__file__)
     nbextensions.install_nbextension([os.path.join(pkgdir, 'mobilechelonianjs')], symlink=True)
-    display(Javascript("IPython.load_extensions('mobilechelonianjs/turtlewidget');"))
 
 class Turtle(widgets.DOMWidget):
+    _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget", sync=True)
     _view_name = Unicode('TurtleView', sync=True)
+    # TODO: Make this an eventful list, so we're not transferring the whole
+    # thing on every sync
+    points = List(sync=True)
+
     SIZE = 400
     OFFSET = 20
     def __init__(self):
@@ -25,6 +29,7 @@ class Turtle(widgets.DOMWidget):
             t = Turtle()
         '''
         super(Turtle, self).__init__()
+        prepare_js()
         display(self)
         self.pen = 1
         self.speedVar = 1
@@ -141,7 +146,7 @@ class Turtle(widgets.DOMWidget):
 
     def _add_point(self):
         p = dict(p=self.pen, lc=self.color, x=self.posX, y=self.posY, b=self.b_change, s=self.speedVar)
-        self.send(p)
+        self.points = self.points + [p]
 
     def circle(self, radius, extent=360):
         """Draw a circle, or part of a circle.

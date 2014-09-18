@@ -1,4 +1,4 @@
-require(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(paperlib, WidgetManager){
+define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(paperlib, widget){
     
     function TurtleDrawing(canvas_element, grid_button, help_button) {
         this.points = [];
@@ -293,7 +293,7 @@ require(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(
     }
     
     // Define the DatePickerView
-    var TurtleView = IPython.DOMWidgetView.extend({
+    var TurtleView = widget.DOMWidgetView.extend({
         render: function(){
             var toinsert = $('<div/>');
             var turtleArea = $('<div/>');
@@ -328,17 +328,16 @@ require(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(
             canvasDiv.append(canvas);
             
             this.turtledrawing = new TurtleDrawing(canvas, gridButton, helpButton);
-            
-            //~ this.model.on('msg:custom', this.on_msg, this);
+            this.turtledrawing.points = this.model.get('points');
             
             this.$el.append(toinsert);
+            window.debugturtle = this;
         },
-        on_msg: function(content) {
-            console.log("received " + content);
-            this.turtledrawing.points.push(content);
+        update: function(options) {
+            //console.log("doing update");
+            this.turtledrawing.points = this.model.get('points');
         }
     });
-    
-    // Register the DatePickerView with the widget manager.
-    WidgetManager.register_widget_view('TurtleView', TurtleView);
+
+    return {TurtleView: TurtleView}
 });
