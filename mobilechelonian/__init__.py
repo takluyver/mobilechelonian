@@ -3,14 +3,24 @@ import math
 
 from IPython.html import widgets, nbextensions
 from IPython.utils.traitlets import Unicode, List
-from IPython.display import display
+from IPython.display import display, Javascript
 
-# XXX: The user shouldn't have to run this manually, but doing this when we
-# create a Turtle doesn't get the extension loaded before it tries to create
-# the widget.
-def prepare_js():
+def install_js():
     pkgdir = os.path.dirname(__file__)
     nbextensions.install_nbextension([os.path.join(pkgdir, 'mobilechelonianjs')], symlink=True)
+
+def prepare_js():
+    """Prepare Javascript - needed on IPython 2.x before using Turtle.
+
+    This is unnecessary on IPython 3 or above.
+    """
+    install_js()
+    display(Javascript("""require(['nbextensions/mobilechelonianjs/turtlewidget.js',
+                                   'widgets/js/manager'],
+                                  function(turtlemod, manager) {
+                                    manager.WidgetManager.register_widget_view(
+                                        'TurtleView', turtlemod.TurtleView);
+                                 });"""))
 
 class Turtle(widgets.DOMWidget):
     _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget", sync=True)
@@ -29,7 +39,7 @@ class Turtle(widgets.DOMWidget):
             t = Turtle()
         '''
         super(Turtle, self).__init__()
-        prepare_js()
+        install_js()
         display(self)
         self.pen = 1
         self.speedVar = 1
