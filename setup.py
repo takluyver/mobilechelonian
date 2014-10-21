@@ -11,6 +11,7 @@ setup(name='mobilechelonian',
       author_email='thomas@kluyver.me.uk',
       url='https://github.com/takluyver/mobilechelonian',
       packages=['mobilechelonian'],
+      package_data={'mobilechelonian': ['mobilechelonianjs/*.js']},
       classifiers=[
           'Framework :: IPython',
           'Intended Audience :: Education',

@@ -1,4 +1,6 @@
 __pycache__/
-build
+build/
+dist/
+MANIFEST
 .ipynb_checkpoints
 
