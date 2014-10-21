@@ -21,19 +21,20 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
                 var canvasSize = that.canvas.width;
                 grid.lineTo(start.add([0,canvasSize]));
                 
-                for(var i = 20; i <= canvasSize; i += 20){
+                var i;
+                for(i = 20; i <= canvasSize; i += 20){
                     grid.lineTo(start.add([i,canvasSize]));
                     grid.lineTo(start.add([i,0]));
                     grid.lineTo(start.add([i+20,0]));
                 }
-                for(var i = 20; i <= canvasSize; i += 20){
+                for(i = 20; i <= canvasSize; i += 20){
                     grid.lineTo(start.add([canvasSize,i]));
                     grid.lineTo(start.add([0,i]));
                     grid.lineTo(start.add([0,i+20]));
                 }
                 paper.view.draw();
             } else {
-                that.grid_on = false;;
+                that.grid_on = false;
                 grid.clear();
                 paper.view.draw();
             }
@@ -109,11 +110,11 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
             // Good test command to see what the input is from the string
            //alert("old:"+oldX +" "+ oldY + " " + oldRotation + " New:" + newX + " " +newY + " " + changRot+ " " +turtleSpeed );
 
-        }
+        };
         
         TurtleDrawing.prototype.draw_turtle = function() {
             //builds the initial turtle icon
-            if(this.turtleShow==1){
+            if(this.turtleShow===1){
                 var oldX = this.oldX;
                 var oldY = this.oldY;
                 var turtleColour = this.turtleColour;
@@ -153,10 +154,9 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
                 circle6.fillColor = turtleColour;
 
                 this.turtle = new paper.Group([circle1,circle2,circle3,circle4,circle5,circle6,tail]);
-                paper.view.draw;
             }
-        }
-        this.draw_turtle()
+        };
+        this.draw_turtle();
         
         /*
           The onFrame function does all the drawing, its called every frame at roughly
@@ -177,7 +177,7 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
             var frameX;
             var frameY;
 
-            if ((changY ==0 || changX ==0)){
+            if ((changY === 0 || changX === 0)){
                 // can't devide by 0, no need for frame calculation anyway if there's 
                 // no change in one direction
                 frameY = 1;
@@ -192,9 +192,9 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
                 frameX = 1;	
             }
             //alert("changX: " + changX + " chanY: " + changY )
-            if((changX<turtleSpeed) && that.changRot==0 && changX!=0){
+            if((changX<turtleSpeed) && that.changRot===0 && changX!==0){
                 
-                if ((changX<=2) && changRot==0 && changX!=0){
+                if ((changX<=2) && changRot===0 && changX!==0){
                     that.oldX=that.newX;
                     that.oldY=that.newY;
                 }
@@ -204,9 +204,9 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
                 turtleSpeed = changX;
             }
 
-            if ((changY<turtleSpeed) && that.changRot==0 && changY!=0){
+            if ((changY<turtleSpeed) && that.changRot===0 && changY!==0){
                 
-                if ((changY<=2) && that.changRot==0 && changY!=0){
+                if ((changY<=2) && that.changRot===0 && changY!==0){
                     that.oldX = that.newX;
                     that.oldY = that.newY;
                 }
@@ -222,7 +222,7 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
                 
             //}
             
-            else if  (that.changRot!=0 && (Math.abs(changRot))<turtleSpeed){
+            else if  (that.changRot!==0 && (Math.abs(changRot))<turtleSpeed){
                 turtleSpeed=1;
                 
             }
@@ -230,7 +230,7 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
             //frameY *= turtleSpeed;
 
             //rotate turtle, current is the exact centre of the turtle
-            if (changRot != 0 && that.turtleShow==1){
+            if (changRot !== 0 && that.turtleShow===1){
                 var current = new paper.Point(that.oldX, that.oldY);
                 
                 if(changRot < 0) {
@@ -249,27 +249,27 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
 
             if (that.newX > that.oldX) {
                 that.oldX += (frameX*turtleSpeed);
-                if(turtleShow==1){
+                if(turtleShow===1){
                     that.turtle.translate((frameX*turtleSpeed),0);
                 }
             }
             if (that.newY > that.oldY){
                 that.oldY += (frameY*turtleSpeed);
-                if(turtleShow==1){
+                if(turtleShow===1){
                     that.turtle.translate(0,(frameY*turtleSpeed));
                 }
             }
 
             if (that.newX < that.oldX){
                 that.oldX -= (frameX*turtleSpeed);
-                if(turtleShow==1){
+                if(turtleShow===1){
                     that.turtle.translate((-frameX*turtleSpeed),0);
                 }
             }
 
             if (that.newY < that.oldY){
                 that.oldY -= (frameY*turtleSpeed);
-                if(turtleShow==1){
+                if(turtleShow===1){
                     that.turtle.translate(0,(-frameY*turtleSpeed));
                 }
             }
@@ -277,7 +277,7 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
             // prints the little circles every frame until we reach the correct point
             // to create the line
             //alert(" ("+ newY+ ")  "+ oldY+ "  where brooklyn at " +" ("+ newX+ ")  "+ oldX + " speed:"+ turtleSpeed + " changRot:" + changRot);
-            if (that.newY != that.oldY || that.newX != that.oldX || that.changRot != 0){
+            if (that.newY !== that.oldY || that.newX !== that.oldX || that.changRot !== 0){
                 
                 if(that.newPen == 1){
                     that.path.add(new paper.Point(that.oldX, that.oldY));
@@ -300,16 +300,16 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
             turtleArea.attr('id','turtle-canvas-area');
             toinsert.append(turtleArea);
 
-            var buttonDiv = $('<div\>');
+            var buttonDiv = $('<div/>');
             buttonDiv.attr('target','button-area');
 
             // create help button 
-            var helpButton = $('<button\>');
+            var helpButton = $('<button/>');
             helpButton.append("Help!");
             buttonDiv.append(helpButton);
             
             // create grid button  
-            var gridButton = $('<button\>');
+            var gridButton = $('<button/>');
             gridButton.attr('id','grid-element');
             gridButton.attr('value', 0);
             gridButton.append("Grid On/Off");
@@ -339,5 +339,5 @@ define(['nbextensions/mobilechelonianjs/paper', "widgets/js/widget"], function(p
         }
     });
 
-    return {TurtleView: TurtleView}
+    return {TurtleView: TurtleView};
 });
