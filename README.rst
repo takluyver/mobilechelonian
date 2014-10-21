@@ -6,7 +6,7 @@ This is a Turtle module for the IPython notebook. It's based on code by
 as a class assignment (the other was `PACattack <http://macewancmpt395.github.io/PACattack/>`_;
 I could have based this on either, but I had to pick one).
 
-To use it, first run this (this step will hopefully be unnecessary eventually)::
+To use it, first run this (you can skip this on IPython 3 or above)::
 
     from mobilechelonian import prepare_js
     prepare_js()
