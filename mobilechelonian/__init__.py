@@ -20,7 +20,7 @@ def prepare_js():
                                   function(turtlemod, manager) {
                                     manager.WidgetManager.register_widget_view(
                                         'TurtleView', turtlemod.TurtleView);
-                                 });"""))
+                                 }, function(err) {console.log(err);});"""))
 
 class Turtle(widgets.DOMWidget):
     _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget", sync=True)
