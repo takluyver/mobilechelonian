@@ -6,17 +6,15 @@ This is a Turtle module for the IPython notebook. It's based on code by
 as a class assignment (the other was `PACattack <http://macewancmpt395.github.io/PACattack/>`_;
 I could have based this on either, but I had to pick one).
 
-To use it, first run this (you can skip this on IPython 3 or above)::
+Mobilechelonian requires IPython 3 or above.
 
-    from mobilechelonian import prepare_js
-    prepare_js()
-
-Then create a turtle and draw::
+Using it looks like this::
 
     from mobilechelonian import Turtle
     t = Turtle()
     t.speed(5)
     colours=["red","blue","yellow","brown","black","purple","green"]
+
     t.penup(); t.left(90); t.forward(200);t.right(90);t.pendown()
     for i in range (0,18):
         t.pencolor(colours[i%7])
