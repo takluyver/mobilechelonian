@@ -7,7 +7,8 @@ from IPython.display import display
 
 def install_js():
     pkgdir = os.path.dirname(__file__)
-    nbextensions.install_nbextension([os.path.join(pkgdir, 'mobilechelonianjs')], symlink=True)
+    nbextensions.install_nbextension(os.path.join(pkgdir, 'mobilechelonianjs'),
+                                     user=True)
 
 class Turtle(widgets.DOMWidget):
     _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget", sync=True)
