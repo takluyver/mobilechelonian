@@ -1,8 +1,9 @@
 import os.path
 import math
 
-from IPython.html import widgets, nbextensions
-from IPython.utils.traitlets import Unicode, List
+from ipywidgets import widgets
+from notebook import nbextensions
+from traitlets import Unicode, List
 from IPython.display import display
 
 __version__ = '0.2'
@@ -13,8 +14,8 @@ def install_js():
                                      user=True)
 
 class Turtle(widgets.DOMWidget):
-    _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget", sync=True)
-    _view_name = Unicode('TurtleView', sync=True)
+    _view_module = Unicode("nbextensions/mobilechelonianjs/turtlewidget").tag(sync=True)
+    _view_name = Unicode('TurtleView').tag(sync=True)
     # TODO: Make this an eventful list, so we're not transferring the whole
     # thing on every sync
     points = List(sync=True)
