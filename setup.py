@@ -4,8 +4,8 @@ with open("README.rst", "r") as f:
     readme = f.read()
 
 setup(name='mobilechelonian',
-      version='0.2',
-      description='Turtles in the IPython Notebook',
+      version='0.3',
+      description='Turtles in the Jupyter Notebook',
       long_description = readme,
       author='Thomas Kluyver',
       author_email='thomas@kluyver.me.uk',
@@ -21,5 +21,5 @@ setup(name='mobilechelonian',
           'Topic :: Artistic Software',
           'Topic :: Education',
       ],
-      install_requires=['IPython'],
+      install_requires=['IPython', 'ipywidgets'],
 )
