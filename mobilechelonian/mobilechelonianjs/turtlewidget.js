@@ -71,7 +71,7 @@ define(['nbextensions/mobilechelonianjs/paper', "jupyter-js-widgets"], function(
         this.changRot = 0;
         
         this.path = new paper.Path();
-        this.path.strokewidth = 3;
+        this.path.strokeWidth = 3;
         this.path.add(new paper.Point(this.veryOldX, this.veryOldY));
         
         /* 

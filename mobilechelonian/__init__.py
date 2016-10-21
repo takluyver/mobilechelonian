@@ -120,8 +120,8 @@ class Turtle(widgets.DOMWidget):
         
             t.backward(100)
         '''
-        self.posX -= round(num * math.cos(math.radians(self.bearing)), 1)
-        self.posY += round(num * math.sin(math.radians(self.bearing)), 1)
+        self.posX -= round(num * math.sin(math.radians(self.bearing)), 1)
+        self.posY += round(num * math.cos(math.radians(self.bearing)), 1)
 
         if self.posX < Turtle.OFFSET:
             self.posX = Turtle.OFFSET
