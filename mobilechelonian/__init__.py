@@ -6,7 +6,7 @@ from notebook import nbextensions
 from traitlets import Unicode, List
 from IPython.display import display
 
-__version__ = '0.3'
+__version__ = '0.4'
 
 def install_js():
     pkgdir = os.path.dirname(__file__)
