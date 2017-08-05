@@ -24,4 +24,5 @@ Using it looks like this::
 
 .. image:: sample.png
 
-[![Binder](http://mybinder.org/badge.svg)](beta.mybinder.org/v2/gh/choldgraf/mobilechelonian/master/filepath=try.ipynb)
+.. image:: http://mybinder.org/badge.svg
+   :target: https://beta.mybinder.org/v2/gh/takluyver/mobilechelonian/master?filepath=try.ipynb
