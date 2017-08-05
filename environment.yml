@@ -1,0 +1,3 @@
+dependencies:
+  - ipywidgets
+  - IPython

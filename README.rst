@@ -23,3 +23,6 @@ Using it looks like this::
     t.home()
 
 .. image:: sample.png
+
+.. image:: http://mybinder.org/badge.svg
+   :target: https://beta.mybinder.org/v2/gh/takluyver/mobilechelonian/master?filepath=try.ipynb
