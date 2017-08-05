@@ -23,3 +23,5 @@ Using it looks like this::
     t.home()
 
 .. image:: sample.png
+
+[![Binder](http://mybinder.org/badge.svg)](beta.mybinder.org/v2/gh/choldgraf/mobilechelonian/master/filepath=try.ipynb)
