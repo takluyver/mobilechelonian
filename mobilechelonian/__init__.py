@@ -37,7 +37,6 @@ class Turtle(widgets.DOMWidget):
         self.color = "black"
         self.bearing = 90
         self.points = []
-        self.penSize = 1
         self.home()
 
     def pendown(self):
@@ -146,17 +145,6 @@ class Turtle(widgets.DOMWidget):
         '''
         self.color = color
 
-    def pensize(self, size):
-        """Change the size of the pen.
-
-        Example::
-
-            t.pensize(2)
-        """
-        size = min(10, size)
-        size = max(0, size)
-        self.penSize = size
-
     def setposition(self, x, y, bearing=None):
         """Change the position of the turtle.
 
@@ -188,7 +176,7 @@ class Turtle(widgets.DOMWidget):
 
     def _add_point(self):
         p = dict(p=self.pen, lc=self.color, x=self.posX, y=self.posY,
-                 b=self.b_change, s=self.speedVar, sz=self.penSize)
+                 b=self.b_change, s=self.speedVar)
         self.points = self.points + [p]
 
     def circle(self, radius, extent=360):
