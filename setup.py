@@ -21,5 +21,5 @@ setup(name='mobilechelonian',
           'Topic :: Artistic Software',
           'Topic :: Education',
       ],
-      install_requires=['IPython', 'ipywidgets'],
+      install_requires=['IPython', 'ipywidgets>=7.0.0'],
 )
