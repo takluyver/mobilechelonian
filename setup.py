@@ -4,7 +4,7 @@ with open("README.rst", "r") as f:
     readme = f.read()
 
 setup(name='mobilechelonian',
-      version='0.4',
+      version='0.5',
       description='Turtles in the Jupyter Notebook',
       long_description = readme,
       author='Thomas Kluyver',
