@@ -6,6 +6,10 @@ This is a Turtle module for the Jupyter Notebook. It's based on code by
 as a class assignment (the other was `PACattack <http://macewancmpt395.github.io/PACattack/>`_;
 I could have based this on either, but I had to pick one).
 
+Install it in a terminal/command prompt with::
+
+    pip install mobilechelonian
+
 Using it looks like this::
 
     from mobilechelonian import Turtle
