@@ -42,7 +42,7 @@ define(['nbextensions/mobilechelonianjs/paper', "@jupyter-widgets/base"], functi
         
         this.help_button = help_button;
         this.help_button.click(function (event){
-            alert("example:\nfrom NewTurtle import Turtle\nt = Turtle()\nt.forward(50)\nfor help:\nhelp(Turtle)");
+            alert("example:\nfrom mobilechelonian import Turtle\nt = Turtle()\nt.forward(50)\nfor help:\nhelp(Turtle)");
         });
         
         // some variable to play with still
