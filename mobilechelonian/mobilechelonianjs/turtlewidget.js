@@ -233,14 +233,20 @@ define(['nbextensions/mobilechelonianjs/paper', "@jupyter-widgets/base"], functi
             if (changRot !== 0 && that.turtleShow===1){
                 var current = new paper.Point(that.oldX, that.oldY);
                 
-                if(changRot < 0) {
-                    // Turning left
-                    that.changRot += that.rotateSpeed*turtleSpeed;
-                    that.turtle.rotate(-that.rotateSpeed*turtleSpeed,current);
+                if (Math.abs(changRot) < that.rotateSpeed*turtleSpeed) {
+                    // Change is too small to fix with a rotation step
+                    that.changRot = 0;
+                    that.turtle.rotate(changRot);
                 } else {
-                    // Turning right
-                    that.changRot -= that.rotateSpeed*turtleSpeed;
-                    that.turtle.rotate(that.rotateSpeed*turtleSpeed,current);                
+                    if (changRot < 0) {
+                        // Turning left
+                        that.changRot += that.rotateSpeed*turtleSpeed;
+                        that.turtle.rotate(-that.rotateSpeed*turtleSpeed,current);
+                    } else {
+                        // Turning right
+                        that.changRot -= that.rotateSpeed*turtleSpeed;
+                        that.turtle.rotate(that.rotateSpeed*turtleSpeed,current);
+                    }
                 }
             } else {
                 //if turtle is off we have to manually set old rotation	
